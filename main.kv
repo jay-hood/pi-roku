@@ -1,0 +1,90 @@
+<HBoxWidget>:
+	BoxLayout:
+		size: root.size
+		pos: root.pos
+		id: boxlayout_h
+		orientation: 'horizontal'
+		ToggleButton:
+			text: 'h1'
+			group: 'test'
+
+<VBoxWidget>:
+	BoxLayout:
+		height: '20dp'
+        width: root.width
+		id: boxlayout_v
+		orientation: 'vertical'
+		ToggleButton:
+			text: 'v1'
+			group: 'test'
+   
+<Header>:
+    size_hint: 1, .1
+    anchor_x: "center"
+    anchor_y: "top"
+    id: header
+    Button: 
+        text: 'hello'
+
+<Scroll>:
+    size_hint_x: .5
+    pos_hint: {'x': 0.5, 'y': 0}
+    orientation: 'vertical'
+    do_scroll_x: False
+    do_scroll_y: True
+    GridLayout:
+        pos: root.pos
+        size_hint_x: 1
+        size_hint_y: None
+        cols: 1
+        height: self.minimum_height
+        row_default_height: 100
+        row_force_default: True
+
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world2'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world3'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world2'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world3'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world2'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world3'                 
+                
+
+<ContainerBox>:
+    orientation: 'horizontal'
+    HBoxWidget:
+    Scroll:
+
+<Combined>:
+    orientation: 'vertical'
+    Header:
+    ContainerBox:
