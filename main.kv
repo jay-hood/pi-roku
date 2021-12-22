@@ -1,12 +1,49 @@
 <HBoxWidget>:
-	BoxLayout:
-		size: root.size
-		pos: root.pos
-		id: boxlayout_h
-		orientation: 'horizontal'
-		Button:
-			text: 'h1'
-			group: 'test'
+	RelativeLayout:
+        size: 100, 100
+        Button:
+            pos_hint: {'x': 4.05, 'y': 6}
+            text: "UP"  
+        Button:
+            pos_hint: {'x': 4.05, 'y': 5}
+            text: "OK"
+        Button:
+            pos_hint: {'x': 4.05, 'y': 4}
+            text: "DOWN"
+        Button:
+            pos_hint: {'x': 3.05, 'y': 5} 
+            text: "LEFT"
+        Button:
+            pos_hint: {'x': 5.05, 'y': 5}
+            text: "RIGHT"
+    GridLayout:
+        cols: 5
+        rows: 2
+        size: 200, 250
+        col_default_width: 150
+        spacing: 30
+        padding: [20, 0, 0, 50]
+        Button:
+            text: "REW 10"
+        Button:
+            text: "*"
+        Button:
+            text: "HOME"
+        Button:
+            text: "BACK"
+        Button:
+            text: "MUTE"
+        Button:
+            text: "VOL UP"
+        Button:
+            text: "VOL DOWN"
+        Button:
+            text: "FF"
+        Button:
+            text: "PLAY"
+        Button:
+            text: "REW"
+
 
    
 <Header>:
@@ -33,8 +70,6 @@
         row_force_default: True
 
         Button: 
-            width: root.width
-            pos: root.pos
             text: 'Hello world'
         Button: 
             width: root.width
