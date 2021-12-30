@@ -74,49 +74,49 @@ class ControlBox(Widget):
         self.add_widget(self.relay)
         self.add_widget(self.gridlay)
 
-    def up(self):
+    def up(*args):
         CURRENT_ROKU.up()
 
-    def down(self):
+    def down(*args):
         CURRENT_ROKU.down()
 
-    def select(self):
+    def select(*args):
         CURRENT_ROKU.select()
 
-    def left(self):
+    def left(*args):
         CURRENT_ROKU.left()
 
-    def right(self):
+    def right(*args):
         CURRENT_ROKU.right()
 
-    def home(self, val):
+    def home(*args):
         CURRENT_ROKU.home()
 
-    def back(self):
+    def back(*args):
         CURRENT_ROKU.back()
 
-    def replay(self):
+    def replay(*args):
         CURRENT_ROKU.replay()
 
-    def info(self):
+    def info(*args):
         CURRENT_ROKU.info()
 
-    def volume_mute(self):
+    def volume_mute(*args):
         CURRENT_ROKU.mute()
 
-    def volume_up(self):
+    def volume_up(*args):
         CURRENT_ROKU.volume_up()
 
-    def volume_down(self):
+    def volume_down(*args):
         CURRENT_ROKU.volume_down()
 
-    def forward(self):
+    def forward(*args):
         CURRENT_ROKU.forward()
 
-    def play(self):
+    def play(*args):
         CURRENT_ROKU.play()
 
-    def reverse(self):
+    def reverse(*args):
         CURRENT_ROKU.reverse()
 
     def add_relay_buttons(self):
@@ -133,6 +133,7 @@ class ControlBox(Widget):
             btn.pos_hint = button[1]
             btn.text = button[2]
             btn.bind(on_press=button[3])
+            self.relay.add_widget(btn)
         # btn1 = Button()
         # btn1.size_hint = (1.25, 1.25)
         # btn1.pos_hint = {"x": 4.00, "y": 5.75}
