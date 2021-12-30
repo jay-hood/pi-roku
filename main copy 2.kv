@@ -1,0 +1,108 @@
+<ControlBox>:
+	RelativeLayout:
+        size: 100, 100
+        Button:
+            size_hint: 1.25, 1.25
+            pos_hint: {'x': 4.00, 'y': 5.75}
+            text: "UP"  
+        Button:
+            size_hint: 1.25, 1.25
+            pos_hint: {'x': 4.00, 'y': 4.5}
+            text: "OK"
+        Button:
+            size_hint: 1.25, 1.25
+            pos_hint: {'x': 4.00, 'y': 3.25}
+            text: "DOWN"
+        Button:
+            size_hint: 1.25, 1.25
+            pos_hint: {'x': 2.75, 'y': 4.5} 
+            text: "LEFT"
+        Button:
+            size_hint: 1.25, 1.25
+            pos_hint: {'x': 5.25, 'y': 4.5}
+            text: "RIGHT"
+    GridLayout:
+        cols: 5
+        rows: 2
+        size: 200, 250
+        col_default_width: 150
+        spacing: 30
+        padding: [20, 0, 0, 50]
+        Button:
+            text: "REW 10"
+        Button:
+            text: "OPTIONS"
+        Button:
+            text: "HOME"
+        Button:
+            text: "BACK"
+        Button:
+            text: "MUTE"
+        Button:
+            text: "VOL UP"
+        Button:
+            text: "VOL DOWN"
+        Button:
+            text: "FF"
+        Button:
+            text: "PLAY"
+        Button:
+            text: "REW"
+
+
+<Scroll>:
+    size_hint_x: .5
+    pos_hint: {'x': 0.5, 'y': 0}
+    orientation: 'vertical'
+    do_scroll_x: False
+    do_scroll_y: True
+    GridLayout:
+        pos: root.pos
+        size_hint_x: 1
+        size_hint_y: None
+        cols: 1
+        height: self.minimum_height
+        row_default_height: 100
+        row_force_default: True
+
+        Button: 
+            text: 'Hello world'
+        Button: 
+            text: 'Hello world2'
+        Button: 
+            text: 'Hello world3'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world2'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world3'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world2'
+        Button: 
+            width: root.width
+            pos: root.pos
+            text: 'Hello world3'                 
+                
+
+<ContainerBox>:
+    orientation: 'horizontal'
+    ControlBox:
+    Scroll:
+
+<Combined>:
+    #orientation: 'vertical'
+    Header:
+    ContainerBox:
