@@ -75,57 +75,102 @@ class ControlBox(Widget):
         self.add_widget(self.gridlay)
 
     def up(*args):
-        CURRENT_ROKU.up()
+        try:
+            CURRENT_ROKU.up()
+        except ConnectionError:
+            pass
 
     def down(*args):
-        CURRENT_ROKU.down()
+        try:
+            CURRENT_ROKU.down()
+        except ConnectionError:
+            pass
 
     def select(*args):
-        CURRENT_ROKU.select()
+        try:
+            CURRENT_ROKU.select()
+        except ConnectionError:
+            pass
 
     def left(*args):
-        CURRENT_ROKU.left()
+        try:
+            CURRENT_ROKU.left()
+        except ConnectionError:
+            pass
 
     def right(*args):
-        CURRENT_ROKU.right()
+        try:
+            CURRENT_ROKU.right()
+        except ConnectionError:
+            pass
 
     def home(*args):
-        CURRENT_ROKU.home()
+        try:
+            CURRENT_ROKU.home()
+        except ConnectionError:
+            pass
 
     def back(*args):
-        CURRENT_ROKU.back()
+        try:
+            CURRENT_ROKU.back()
+        except ConnectionError:
+            pass
 
     def replay(*args):
-        CURRENT_ROKU.replay()
+        try:
+            CURRENT_ROKU.replay()
+        except ConnectionError:
+            pass
 
     def info(*args):
-        CURRENT_ROKU.info()
+        try:
+            CURRENT_ROKU.info()
+        except ConnectionError:
+            pass
 
     def volume_mute(*args):
-        CURRENT_ROKU.mute()
+        try:
+            CURRENT_ROKU.volume_mute()
+        except ConnectionError:
+            pass
 
     def volume_up(*args):
-        CURRENT_ROKU.volume_up()
+        try:
+            CURRENT_ROKU.volume_up()
+        except ConnectionError:
+            pass
 
     def volume_down(*args):
-        CURRENT_ROKU.volume_down()
+        try:
+            CURRENT_ROKU.volume_down()
+        except ConnectionError:
+            pass
 
     def forward(*args):
-        CURRENT_ROKU.forward()
+        try:
+            CURRENT_ROKU.forward()
+        except ConnectionError:
+            pass
 
     def play(*args):
-        CURRENT_ROKU.play()
+        try:
+            CURRENT_ROKU.play()
+        except ConnectionError:
+            pass
 
     def reverse(*args):
-        CURRENT_ROKU.reverse()
+        try:
+            CURRENT_ROKU.reverse()
+        except ConnectionError:
+            pass
 
     def add_relay_buttons(self):
         buttons = [
             ((1.25, 1.25), {"x": 4.00, "y": 5.75}, "UP", self.up),
-            ((1.25, 1.25), {"x": 4.00, "y": 4.5}, "UP", self.select),
-            ((1.25, 1.25), {"x": 4.00, "y": 3.25}, "UP", self.down),
-            ((1.25, 1.25), {"x": 2.75, "y": 4.5}, "UP", self.left),
-            ((1.25, 1.25), {"x": 5.25, "y": 4.5}, "UP", self.right),
+            ((1.25, 1.25), {"x": 4.00, "y": 4.5}, "ENTER", self.select),
+            ((1.25, 1.25), {"x": 4.00, "y": 3.25}, "DOWN", self.down),
+            ((1.25, 1.25), {"x": 2.75, "y": 4.5}, "LEFT", self.left),
+            ((1.25, 1.25), {"x": 5.25, "y": 4.5}, "RIGHT", self.right),
         ]
         for button in buttons:
             btn = Button()
@@ -134,36 +179,6 @@ class ControlBox(Widget):
             btn.text = button[2]
             btn.bind(on_press=button[3])
             self.relay.add_widget(btn)
-        # btn1 = Button()
-        # btn1.size_hint = (1.25, 1.25)
-        # btn1.pos_hint = {"x": 4.00, "y": 5.75}
-        # btn1.text = "UP"
-        # btn1.bind(on_press=self.up)
-        # btn2 = Button()
-        # btn2.size_hint = (1.25, 1.25)
-        # btn2.pos_hint = {"x": 4.00, "y": 4.5}
-        # btn2.text = "OK"
-        # btn2.bind(on_press=self.select)
-        # btn3 = Button()
-        # btn3.size_hint = (1.25, 1.25)
-        # btn3.pos_hint = {"x": 4.00, "y": 3.25}
-        # btn3.text = "DOWN"
-        # btn3.bind(on_press=self.down)
-        # btn4 = Button()
-        # btn4.size_hint = (1.25, 1.25)
-        # btn4.pos_hint = {"x": 2.75, "y": 4.5}
-        # btn4.text = "LEFT"
-        # btn4.bind(on_press=self.left)
-        # btn5 = Button()
-        # btn5.size_hint = (1.25, 1.25)
-        # btn5.pos_hint = {"x": 5.25, "y": 4.5}
-        # btn5.text = "RIGHT"
-        # btn5.bind(on_press=self.right)
-        # self.relay.add_widget(btn1)
-        # self.relay.add_widget(btn2)
-        # self.relay.add_widget(btn3)
-        # self.relay.add_widget(btn4)
-        # self.relay.add_widget(btn5)
 
     def add_gridlay_buttons(self):
         buttons = [
@@ -171,12 +186,12 @@ class ControlBox(Widget):
             ("OPTIONS", self.info),
             ("HOME", self.home),
             ("BACK", self.back),
+            ("PLAY/PAUSE", self.play),
             ("MUTE", self.volume_mute),
-            ("VOL UP", self.volume_up),
-            ("VOL DOWN", self.volume_down),
-            ("FF", self.forward),
-            ("PLAY", self.play),
-            ("REW", self.reverse),
+            ("VOLUME UP", self.volume_up),
+            ("VOLUME DOWN", self.volume_down),
+            ("REWIND", self.reverse),
+            ("FORWARD", self.forward),
         ]
         for btn in buttons:
             b = Button()
@@ -210,8 +225,11 @@ class ScrollGrid(GridLayout):
             for app in CURRENT_ROKU.apps:
                 btn = Button()
                 btn.text = app.name
-                btn.bind(on_press=app.launch)
+                btn.bind(on_press=self.launch)
                 self.add_widget(btn)
+
+    def launch(self, instance):
+        CURRENT_ROKU[instance.text].launch()
 
 
 class Scroll(ScrollView):
@@ -257,11 +275,9 @@ class Header(AnchorLayout):
                     r.device_info.model_name == instance.text
                     and CURRENT_ROKU.device_info.model_name != instance.text
                 ):
-                    print("Not current Roku")
                     try:
                         CURRENT_ROKU = r
-                        print("Setting current roku: ", r)
-
+                        print(r.commands)
                         self.cbox.scroll.gridlay.add_gridlay_buttons()
                         break
                     except ConnectionError as e:
@@ -281,6 +297,7 @@ class Combined(BoxLayout):
 class MainApp(App):
     def build(self):
         Window.size = (1360, 768)
+        Window.maximize()
         return Combined(self)
 
 
