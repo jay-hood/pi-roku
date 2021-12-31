@@ -34,6 +34,10 @@ class DummyRoku(Dummy):
 CURRENT_ROKU = DummyRoku()
 ROKUS = None
 EVENTS = {}
+# GLOBAL_X = 1360
+# GLOBAL_Y = 768
+GLOBAL_X = 858
+GLOBAL_Y = 480
 
 
 def register_event(name, callback):
@@ -61,15 +65,15 @@ class ControlBox(Widget):
     def __init__(self):
         super().__init__()
         self.relay = RelativeLayout()
-        self.relay.size = (100, 100)
+        self.relay.size = (round(GLOBAL_X * 0.07353), round(GLOBAL_Y * 0.13021))
         self.add_relay_buttons()
         self.gridlay = GridLayout()
         self.gridlay.cols = 5
         self.gridlay.rows = 2
-        self.gridlay.size = (200, 250)
-        self.gridlay.col_default_width = 150
-        self.gridlay.spacing = 30
-        self.gridlay.padding = [20, 0, 0, 50]
+        self.gridlay.size = (round(GLOBAL_X * 0.1471), round(GLOBAL_Y * 0.3255))
+        self.gridlay.col_default_width = round(GLOBAL_X * 0.1103)
+        self.gridlay.spacing = round(GLOBAL_X * 0.02206)
+        self.gridlay.padding = [GLOBAL_X * 0.0147, 0, 0, round(GLOBAL_Y * 0.065)]
         self.add_gridlay_buttons()
         self.add_widget(self.relay)
         self.add_widget(self.gridlay)
@@ -165,6 +169,38 @@ class ControlBox(Widget):
             pass
 
     def add_relay_buttons(self):
+        # buttons = [
+        #     (
+        #         (GLOBAL_X * 0.00092, GLOBAL_X * 0.00092),
+        #         {"x": GLOBAL_X * 0.00294, "y": GLOBAL_Y * 0.00747},
+        #         "UP",
+        #         self.up,
+        #     ),
+        #     (
+        #         (GLOBAL_X * 0.00092, GLOBAL_X * 0.00092),
+        #         {"x": GLOBAL_X * 0.00294, "y": GLOBAL_Y * 0.00586},
+        #         "ENTER",
+        #         self.select,
+        #     ),
+        #     (
+        #         (GLOBAL_X * 0.00092, GLOBAL_X * 0.00092),
+        #         {"x": GLOBAL_X * 0.00294, "y": GLOBAL_Y * 0.00423},
+        #         "DOWN",
+        #         self.down,
+        #     ),
+        #     (
+        #         (GLOBAL_X * 0.00092, GLOBAL_X * 0.00092),
+        #         {"x": GLOBAL_X * 0.00202, "y": GLOBAL_Y * 0.00586},
+        #         "LEFT",
+        #         self.left,
+        #     ),
+        #     (
+        #         (GLOBAL_X * 0.00092, GLOBAL_X * 0.00092),
+        #         {"x": GLOBAL_X * 0.00386, "y": GLOBAL_Y * 0.00586},
+        #         "RIGHT",
+        #         self.right,
+        #     ),
+        # ]
         buttons = [
             ((1.25, 1.25), {"x": 4.00, "y": 5.75}, "UP", self.up),
             ((1.25, 1.25), {"x": 4.00, "y": 4.5}, "ENTER", self.select),
@@ -188,8 +224,8 @@ class ControlBox(Widget):
             ("BACK", self.back),
             ("PLAY/PAUSE", self.play),
             ("MUTE", self.volume_mute),
-            ("VOLUME UP", self.volume_up),
-            ("VOLUME DOWN", self.volume_down),
+            ("VOL. UP", self.volume_up),
+            ("VOL. DOWN", self.volume_down),
             ("REWIND", self.reverse),
             ("FORWARD", self.forward),
         ]
@@ -205,7 +241,7 @@ class ScrollGrid(GridLayout):
         super().__init__()
         self.pos = parent.pos
         self.cols = 1
-        self.row_default_height = 100
+        self.row_default_height = round(GLOBAL_Y * 0.13021)
         self.row_force_default = True
         self.add_gridlay_buttons()
         register_event("add_gridlay_buttons", self.add_gridlay_buttons)
@@ -235,8 +271,8 @@ class ScrollGrid(GridLayout):
 class Scroll(ScrollView):
     def __init__(self, main_app):
         super().__init__()
-        self.size_hint_x = 0.5
-        self.pos_hint = {"x": 0.5, "y": 0}
+        self.size_hint_x = GLOBAL_X * 0.0003676
+        self.pos_hint = {"x": GLOBAL_X * 0.0003677, "y": 0}
         self.orientation = "vertical"
         self.do_scroll_x = False
         self.do_scroll_y = True
@@ -262,7 +298,7 @@ class Header(AnchorLayout):
             for r in ROKUS:
                 btn = ToggleButton()
                 btn.group = "rokus"
-                btn.size_hint_x = 0.5
+                btn.size_hint_x = GLOBAL_X * 0.0003676
                 btn.text = r.device_info.model_name
                 btn.bind(on_press=self.set_current_roku)
                 self.box1.add_widget(btn)
@@ -277,7 +313,6 @@ class Header(AnchorLayout):
                 ):
                     try:
                         CURRENT_ROKU = r
-                        print(r.commands)
                         self.cbox.scroll.gridlay.add_gridlay_buttons()
                         break
                     except ConnectionError as e:
@@ -296,8 +331,7 @@ class Combined(BoxLayout):
 
 class MainApp(App):
     def build(self):
-        Window.size = (1360, 768)
-        Window.maximize()
+        Window.size = (GLOBAL_X, GLOBAL_Y)
         return Combined(self)
 
 
